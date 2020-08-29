@@ -6,7 +6,6 @@ import time
 
 I2C = smbus.SMBus(1) # newer version RASP (512 megabytes)
 I2C_ADDRESS = 0x60
-FREQUENCY = 106.7
 
 
 def init_radio():
@@ -15,9 +14,9 @@ def init_radio():
     time.sleep(0.1)
 
 
-def play():
-    """Play radio at FREQUENCY defined in global var"""
-    freq14bit = int (4 * (FREQUENCY * 1000000 + 225000) / 32768) # Frequency distribution for two bytes (according to the data sheet)
+def play(frequency):
+    """Play radio"""
+    freq14bit = int (4 * (frequency * 1000000 + 225000) / 32768) # Frequency distribution for two bytes (according to the data sheet)
     freqH = freq14bit>>8 #int (freq14bit / 256)
     freqL = freq14bit & 0xFF
 
@@ -52,4 +51,4 @@ def mute():
 
 if __name__ == '__main__':
     init_radio()
-    mute()
+    play(106.7)

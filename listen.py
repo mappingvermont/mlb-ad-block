@@ -13,18 +13,18 @@ TODAY = str(date.today())
 def main():
 
     game_url = get_game_url()
-    play_radio = False
+    game_on = False
 
     while True:
 
         current_status = game_in_progress(game_url)
 
-        if current_status != play_radio:
-            if play_radio:
-                radio.mute()
+        if current_status != game_on:
+            if current_status:
+                radio.play(106.7)
 
             else:
-                radio.play()
+                radio.play(88.5)
 
             play_radio = current_status
         time.sleep(10)
