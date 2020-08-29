@@ -3,6 +3,8 @@ from datetime import date
 
 import requests
 
+import radio
+
 BASE_URL = "https://statsapi.mlb.com"
 SCHEDULE_URL = BASE_URL + "/api/v1/schedule?sportId=1&hydrate=team,linescore"
 TODAY = str(date.today())
@@ -11,7 +13,7 @@ TODAY = str(date.today())
 def main():
 
     game_url = get_game_url()
-    play_radio = True
+    play_radio = False
 
     while True:
 
@@ -19,12 +21,12 @@ def main():
 
         if current_status != play_radio:
             if play_radio:
-                print("muting")
+                radio.mute()
+
             else:
-                print("playing radio")
+                radio.play()
 
             play_radio = current_status
-
         time.sleep(10)
 
 
@@ -45,7 +47,7 @@ def get_game_url():
     game_list = [
         g
         for g in todays_games
-        if "Indians"
+        if "Reds"
         in [g["teams"][side]["team"]["teamName"] for side in ("home", "away")]
         and g["status"]["abstractGameState"] == "Live"
     ]
