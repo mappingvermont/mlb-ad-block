@@ -18,7 +18,7 @@ def main():
         current_status = game_in_progress(game_url)
 
         if current_status != play_radio:
-            if play_radio is True:
+            if play_radio:
                 print("muting")
             else:
                 print("playing radio")
