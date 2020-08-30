@@ -26,8 +26,8 @@ def main():
             else:
                 radio.play(88.5)
 
-            play_radio = current_status
-        time.sleep(10)
+            game_on = current_status
+        time.sleep(5)
 
 
 def game_in_progress(game_url):
@@ -47,7 +47,7 @@ def get_game_url():
     game_list = [
         g
         for g in todays_games
-        if "Reds"
+        if "Nationals"
         in [g["teams"][side]["team"]["teamName"] for side in ("home", "away")]
         and g["status"]["abstractGameState"] == "Live"
     ]
