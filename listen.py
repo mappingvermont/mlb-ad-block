@@ -13,7 +13,7 @@ TODAY = str(date.today())
 def main():
 
     game_url = get_game_url()
-    game_on = False
+    game_on = None
 
     while True:
 
@@ -24,10 +24,10 @@ def main():
                 radio.play(106.7)
 
             else:
-                radio.play(88.5)
+                radio.play(90.9)
 
             game_on = current_status
-        time.sleep(5)
+        time.sleep(2)
 
 
 def game_in_progress(game_url):
@@ -35,7 +35,9 @@ def game_in_progress(game_url):
     r = requests.get(game_url)
     current_play = r.json()["liveData"]["plays"]["currentPlay"]
 
-    return current_play["count"]["outs"] != 3
+    count = current_play["count"]
+
+    return count["outs"] != 3 and sum(count.values()) > 0
 
 
 def get_game_url():
