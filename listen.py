@@ -34,11 +34,18 @@ def main():
 def game_in_progress(game_url):
 
     r = requests.get(game_url)
-    current_play = r.json()["liveData"]["plays"]["currentPlay"]
+    live_data = r.json()["liveData"]["plays"]
+
+    last_play = live_data["allPlays"][1]
+    current_play = live_data["currentPlay"]
+    same_inning = (
+        last_play["about"]["inning"] == current_play["about"]["inning"]
+        and last_play["about"]["isTopInning"] == current_play["about"]["isTopInning"]
+    )
 
     count = current_play["count"]
 
-    return count["outs"] != 3 and sum(count.values()) > 0
+    return count["outs"] != 3 and sum(count.values()) > 0 and not same_inning
 
 
 def get_game_url():
