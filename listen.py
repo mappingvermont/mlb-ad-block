@@ -24,6 +24,7 @@ def main():
                 radio.play(106.7)
 
             else:
+                time.sleep(8)
                 radio.play(90.9)
 
             game_on = current_status
